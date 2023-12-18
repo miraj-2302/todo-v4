@@ -63,7 +63,7 @@ const ForgetPassword = () => {
           <div className='mt-[20px]'>
             
           <button onClick={handleSubmit} className='bg-primary rounded-lg font-nunito font-bold text-white text-[16px] p-5'>Reset</button>
-            <button className='ml-[20px] bg-primary rounded-lg font-nunito font-bold text-white text-[16px] p-5'><Link to='/login'>Back To Login</Link></button>
+            <button className='ml-[20px] bg-primary rounded-lg font-nunito font-bold text-white text-[16px] p-5'><Link to='/'>Back To Login</Link></button>
            
           </div>
            
