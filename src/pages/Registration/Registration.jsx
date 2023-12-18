@@ -112,10 +112,10 @@ const [showPassword, setShowPassword] = useState('')
           />
      <div className='bg-white p-6 rounded-lg w-full max-w-lg '>
      <div className='py-2 px-5'>
-          <h1 className='text-[30pxpx] text-center font-poppins font-bold text-white'>Get Start Your Account Loging</h1>
+          <h1 className='text-[30px] text-center font-poppins font-bold text-slate-950'>Get Start Your Account Loging</h1>
           
         </div>
-        <div className='relative ml-[50px] mr-[50px] mt-[50px]'>
+        <div className='relative ml-[50px] mr-[50px] mt-[20px]'>
         <input onChange={handleEmail} value={email}  className='w-full border border-[#b8b9ce] rounded-lg outline-none py-[26px] px-[52px]' type="email" />
              <p class="absolute top-[-8px] left-[34px] px-[18px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px bg-white">Email Address</p>
 
@@ -124,7 +124,7 @@ const [showPassword, setShowPassword] = useState('')
               <p className='font-nunito font-semibold bg-red-500 w-96 rounded p-[5px] mt-[5px] text-white'>{emailerr}</p>
             }
         </div>
-        <div className='relative ml-[50px] mr-[50px] mt-[50px]'>
+        <div className='relative ml-[50px] mr-[50px] mt-[20px]'>
         <input onChange={handleFullName} value={fullName}  className='w-full border border-[#b8b9ce] rounded-lg outline-none py-[26px] px-[52px]' type="email" />
              <p class="absolute top-[-8px] left-[34px] px-[18px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px bg-white">Full Name</p>
              {
@@ -132,7 +132,7 @@ const [showPassword, setShowPassword] = useState('')
                <p className='font-nunito font-semibold bg-red-500 w-96 rounded p-[5px] mt-[5px] text-white'>{fullNameerr}</p>
              }
         </div>
-        <div className='relative ml-[50px] mr-[50px] mt-[50px]'>
+        <div className='relative ml-[50px] mr-[50px] mt-[20px]'>
         <input onChange={handlePassword} value={password} className='w-full border border-[#b8b9ce] rounded-lg outline-none py-[26px] px-[52px]' type={showPassword ? 'text' : 'password'} />
              <p class="absolute top-[-8px] left-[34px] px-[18px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px bg-white">Password</p>
              {
@@ -154,7 +154,7 @@ const [showPassword, setShowPassword] = useState('')
            
            </div>
            <div className='text-center justify-center mb-10'>
-              <p className='font-open text-[#03014C] text-[13px] mt-[35px]'> Already  have an account ? <span className='font-open font-bold text-[#EA6C00] text-[13px]'><Link to='/login'>Sign In</Link></span> </p>
+              <p className='font-open text-[#03014C] text-[13px] mt-[35px]'> Already  have an account ? <span className='font-open font-bold text-[#EA6C00] text-[13px]'><Link to='/'>Sign In</Link></span> </p>
           </div>
            </div>
            
