@@ -1,40 +1,58 @@
 import React, { useState } from 'react'
+
 import { RiEyeFill, RiEyeCloseFill } from 'react-icons/ri'
-import { Link, useNavigate } from 'react-router-dom'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate, } from 'react-router-dom'
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
-import   Cropper  from 'react-cropper';
-import 'cropperjs/dist/cropper.css'
+import { useDispatch } from 'react-redux'
+import { userLoginInfo } from '../slices/userSlice'
 
 const Loging = () => {
   const auth = getAuth();
+  const dispatch = useDispatch()
+  const provider = new GoogleAuthProvider();
+
   const navigate = useNavigate('')
   const [email, setEmail] = useState('')
   const [emailerr, setEmailerr] = useState('')
+
+
+
+
   const [password, setPassword] = useState('')
   const [passworderr, setPassworderr] = useState('')
-  const [showPassword, setShowPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
 
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setEmailerr('')
   }
+
+
+
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    setEmailerr('')
+    setPassworderr('')
   }
+
 
   const handleSubmite = () => {
     console.log('okk cool');
 
+
     if (!email) {
-      setEmailerr('Email is Requerd')
+      setEmailerr('Email Is Requred')
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      setEmailerr('Email Is Invalid')
+      setEmailerr('Email Is Invalid');
+
     }
+
+
+
     if (!password) {
-      setPassworderr('Password Is Requerd')
+      setPassworderr('password is requred')
     } else if (!/^(?=.*[a-z])/.test(password)) {
       setPassworderr('The string must contain at least 1 lowercase alphabetical character')
     } else if (!/^(?=.*[A-Z])/.test(password)) {
@@ -47,25 +65,49 @@ const Loging = () => {
       setPassworderr('The string must be eight characters or longer')
     }
 
-    if (email && password && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
 
+    if (email && password && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      const auth = getAuth();
       signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
-          toast.success('Loging SuccesFully Done')
+          toast.success('Login Successfully Done')
+          dispatch(userLoginInfo(user.user))
+          localStorage.setItem('userLoginInfo', JSON.stringify(userLoginInfo(user.user)))
           setEmail('')
           setPassword('')
           setTimeout(() => {
             navigate('/home')
-          })
+          }, 3000)
 
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
+          toast.warn('Pleas Give Your Right Email & Password');
+
+          // if (errorCode.includes('auth/invalid-login-credentials')) {
+
+          //   toast.warn('Pleas Give Your Right Email & Password');
+          // }
+
         });
+
     }
 
+
   }
+
+ 
+    // signInWithPopup(auth, provider)
+    //   .then(() => {
+    //     setTimeout(() => {
+    //       navigate('/home')
+    //     })
+    //   }).catch((error) => {
+    //     const errorCode = error.code;
+    //     console.log(errorCode);
+
+    //   });
+
   return (
     <div className='h-screen w-full bg-slate-950 flex justify-center items-center'>
 

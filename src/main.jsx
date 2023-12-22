@@ -13,6 +13,8 @@ import ForgetPassword from './pages/ForgetPassword/ForgetPassword.jsx';
 import firebaseConfig from './authentication/firebaeConfig.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home/Home.jsx';
+import { Provider } from 'react-redux';
+import store from './store.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +40,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     
+    <Provider store={store}>
+
     <RouterProvider router={router} />
+    </Provider>
      
   </React.StrictMode>,
 )

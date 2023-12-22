@@ -1,52 +1,69 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { ToastContainer, toast } from 'react-toastify';
-import {RiEyeFill, RiEyeCloseFill} from 'react-icons/ri'
+  // import registration from '../../assets/registration.png'
+  import {RiEyeFill, RiEyeCloseFill} from 'react-icons/ri'
+  import { Link, useNavigate, } from 'react-router-dom'
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile  } from "firebase/auth";
+  import { ToastContainer, toast } from 'react-toastify';
+  import { getDatabase, ref, set } from "firebase/database";
 // import { getAuth, sendEmailVerification } from "firebase/auth";
 
 const Registration = () => {
-const auth = getAuth();
-const navigate = useNavigate('')
-const [email, setEmail] = useState('')
-const [emailerr, setEmailerr] = useState('')
-
-const [fullName, setFullName] = useState('')
-const [fullNameerr, setFullNameerr] = useState('')
-
-const [password, setPassword] = useState('')
-const [passworderr, setPassworderr] = useState('')
-const [showPassword, setShowPassword] = useState('')
-
-     const handleEmail =(e)=>{
-       setEmail(e.target.value);
-       setEmailerr('')
-     }
-
-     const handleFullName =(e)=>{
-          setFullName(e.target.value)
-          setFullNameerr('')
-     }
-     const handlePassword =(e)=>{
-          setPassword(e.target.value)
-          setPassworderr('')
-     }
-
-     const handleSubmite =  ()=>{
-        console.log('ami achi');
-        if(!email){
-          setEmailerr('Email is Requerd')
-        }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
-          setEmailerr('Email Is Invalid')
-        }
-
-        if(!fullName){
-          setFullNameerr('Full Name Is Requerd')
-        }
-
-        if(!password){
-          setPassworderr('Password Is Requerd')
-       }else if(!/^(?=.*[a-z])/.test(password)){
+  
+  
+  
+  
+  
+      const auth = getAuth();
+      const db = getDatabase();
+      const navigate = useNavigate('')
+      const [email, setEmail] = useState('')
+      const [emailerr, setEmailerr] = useState ('')
+      
+     
+     
+      const [fullName, setFullName] = useState('')
+      const [fullNameerr, setFullNameerr] = useState ('')
+      
+      
+      const [password, setPassword] = useState('')
+      const [passworderr, setPassworderr] = useState ('')
+      const [showPassword, setShowPassword] = useState (false)
+      
+  
+      const handleEmail = (e) => {
+          setEmail(e.target.value);
+          setEmailerr ('')
+      }
+      
+      
+      const handleFullName = (e) => {
+        setFullName(e.target.value);
+        setFullNameerr ('')
+      }
+      const handlePassword = (e) => {
+        setPassword(e.target.value);
+        setPassworderr ('')
+      }
+  
+  
+      const handleSubmit = () => {
+          console.log('okk cool');
+        
+        
+          if(!email){
+            setEmailerr('Email Is Requred') 
+        }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+          setEmailerr('Email Is Invalid');
+    
+       }
+         
+          if (!fullName) {
+            setFullNameerr('Full Name Is Required');
+          }
+  
+          if(!password){
+            setPassworderr('password is requred')
+        }else if(!/^(?=.*[a-z])/.test(password)){
           setPassworderr('The string must contain at least 1 lowercase alphabetical character')
         }else if (!/^(?=.*[A-Z])/.test(password)){
           setPassworderr('The string must contain at least 1 uppercase alphabetical character')
@@ -57,43 +74,47 @@ const [showPassword, setShowPassword] = useState('')
         }else if (!/^(?=.{8,})/.test(password)){
           setPassworderr('The string must be eight characters or longer')
         }
-
-        if(email && fullName && password && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
-          createUserWithEmailAndPassword(auth, email, password)
-          .then(() => {
-          console.log('done');
-         }).then(()=>{
-          updateProfile(auth.currentUser, {
-            displayName:fullName , 
-            photoURL: './src/assets/profil.png'
-          }).then(() => {
+  
+          if(email && fullName && password && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
             
-            sendEmailVerification(auth.currentUser)
-                 toast.success('Registration Done Pleas Verified Your Email')
-                 setEmail('')
-                 setFullName('')
-                 setPassword('')
-                setTimeout(()=>{
-                 navigate ('/login')
-               }, 3000)
-           
-          })
+            createUserWithEmailAndPassword(auth, email, password)
+    .then((user) => {
+      updateProfile(auth.currentUser, {
+        displayName: fullName, 
+        photoURL: './src/assets/profil.png'
+      }).then(() => {
+        
+         sendEmailVerification(auth.currentUser)
+         console.log(user,'user');
+       toast.success('Registration Done Pleas Verified Your Email');
+        setEmail('')
+         setFullName('')
+         setPassword('')
+         setTimeout(()=>{
+          navigate ('/')
+          }, 3000)
+      }).then(()=>{
+        set(ref(db, 'users/' + user.user.uid ), {
+          username: user.user.displayName,
+          email: user.user.email,
           
-       
-
-         })
-         .catch((error) => {
-           const errorCode = error.code;
-           if(errorCode.includes ('auth/email-already-in-use')){
-               setEmailerr('Email already in use');
-           }
-         
-     });
-        }
-
-
-
+        });
+      })
+    
+     
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+     if(errorCode.includes ('auth/email-already-in-use')){
+     
+      toast.warn('Email Is Already In Used');
      }
+    });
+  
+          }
+  
+        }
+     
   return (
      <div className='h-screen w-full bg-slate-950 flex justify-center items-center'>
      
@@ -150,7 +171,7 @@ const [showPassword, setShowPassword] = useState('')
         
 
         <div  className=' bg-primary rounded-full cursor-pointer items-center justify-center text-center mt-[30px] mb-6 ml-10 mr-10'>
-            <button onClick={handleSubmite} className=' inline-block font-nunito font-semibold text-white text-[20px] py-[20px]'>Sign Up</button>
+            <button onClick={handleSubmit} className=' inline-block font-nunito font-semibold text-white text-[20px] py-[20px]'>Sign Up</button>
            
            </div>
            <div className='text-center justify-center mb-10'>

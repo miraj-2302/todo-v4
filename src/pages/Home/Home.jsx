@@ -5,9 +5,10 @@ import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { Link } from 'react-router-dom';
 import profil from '../../assets/profil.png'
 import { BiCloudUpload } from "react-icons/bi";
-import { Cropper } from 'react-cropper';
 // import List from "./List";
 import { getStorage, ref as dref, uploadString,getDownloadURL } from "firebase/storage";
+import   Cropper  from 'react-cropper';
+import 'cropperjs/dist/cropper.css'
 
 const Home = () => {
   let[profileModal,setProfileModal] = useState (false);
@@ -114,7 +115,7 @@ const Home = () => {
       
           <div className=' items-center justify-center text-center'>
           
-   <Link to={'/login'}>
+   <Link to={'/'}>
           <button className='bg-white py-2 px-3 font-bold rounded mt-3  '>
           Log Out</button>
    </Link>
