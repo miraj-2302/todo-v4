@@ -109,7 +109,7 @@ const Loging = () => {
     //   });
 
   return (
-    <div className='h-screen w-full bg-slate-950 flex justify-center items-center'>
+    <div className=' w-full h-screen bg-slate-950 flex justify-center items-center'>
 
       <div className=' flex justify-center items-center'>
         <ToastContainer
@@ -124,14 +124,14 @@ const Loging = () => {
           pauseOnHover
           theme="dark"
         />
-        <div className='bg-white p-6 rounded-lg w-full max-w-lg'>
+        <div className='bg-white p-6 rounded-lg justify-center items-center'>
           <div className=''>
-            <h1 className='text-[30px] font-poppins font-bold text-black'>Get Start Your Account Loging</h1>
+            <h1 className='font-bold font-[#11175D] text-[34px]'>Login to your account!</h1>
             
           </div>
-          <div className='relative ml-[50px] mr-[50px] mt-[50px]'>
-            <input onChange={handleEmail} value={email} className='w-full border border-[#b8b9ce] rounded-lg outline-none py-[26px] px-[52px]' type="email" />
-            <p class="absolute top-[-8px] left-[34px] px-[18px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px bg-white">Email Address</p>
+          <div className='relative justify-center mt-[25px]'>
+            <input onChange={handleEmail} value={email} className='w-full border-b border-[#b8b9ce] outline-none py-[26px]' type="email" />
+            <p class="absolute top-[-8px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px">Email Address</p>
 
             {
               emailerr &&
@@ -139,9 +139,9 @@ const Loging = () => {
             }
           </div>
 
-          <div className='relative ml-[50px] mr-[50px] mt-[50px]'>
-            <input onChange={handlePassword} value={password} className='w-full border border-[#b8b9ce] rounded-lg outline-none py-[26px] px-[52px]' type={showPassword ? 'text' : 'password'} />
-            <p class="absolute top-[-8px] left-[34px] px-[18px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px bg-white">Password</p>
+          <div className='relative justify-center mt-[30px]'>
+            <input onChange={handlePassword} value={password} className='w-full border-b border-[#b8b9ce] outline-none py-[26px]' type={showPassword ? 'text' : 'password'} />
+            <p class="absolute top-[-8px] font-nunito font-semibold text-[#11175D] text-[14px] tracking-1px">Password</p>
             {
               showPassword ?
                 <RiEyeFill onClick={() => setShowPassword(!showPassword)} className='absolute top-[33px] right-[23px]' />
@@ -151,17 +151,17 @@ const Loging = () => {
 
             {
               passworderr &&
-              <p className='font-nunito font-semibold bg-red-500 w-96 rounded p-[5px] mt-[5px] text-white'>{passworderr}</p>
+              <p className='font-nunito font-semibold bg-red-500 w-96 rounded p-[5px] mt-[5px]  text-white'>{passworderr}</p>
             }
           </div>
 
 
-          <div className=' bg-primary rounded-full cursor-pointer items-center justify-center text-center mt-[30px] mb-6 ml-10 mr-10'>
-            <button onClick={handleSubmite} className=' inline-block font-nunito font-semibold text-white text-[20px] py-[20px]'>Sign Up</button>
+          <div className=' bg-primary rounded-full cursor-pointer items-center justify-center text-center mt-[30px]'>
+            <button onClick={handleSubmite} className=' inline-block font-nunito font-semibold text-white text-[20px] py-[20px]'>Loging to Continue </button>
 
           </div>
           <div className='text-center justify-center mb-10'>
-            <p className='font-open text-[#03014C] text-[13px] mt-[35px]'> Already  have an account ? <span className='font-open font-bold text-[#EA6C00] text-[13px]'><Link to='/registration'>Sign Up</Link></span> </p>
+            <p className='font-open text-[#03014C] text-[13px] mt-[35px]'> Don’t have an account ? <span className='font-open font-bold text-[#EA6C00] text-[13px]'><Link to='/registration'>Sign Up</Link></span> </p>
             <p className='font-open font-bold text-[#EA6C00] text-[13px] mt-[20px] text-center'><Link to='/forgotpassword'>Forgot Password</Link></p>
           </div>
         </div>
